@@ -49,8 +49,10 @@ Output: false
 用hashmap, 本质上是字典, key:value对, 比较两个hashmap是否完全相同
 Counter[key] -> value
 for loop字典, loop出的是key
-用.get(key, 0): 取key的value, 如果没出现过取0
+字典记得: 用.get(key, 0): -> 取key的value, 如果没出现过取0
+
 OR
+
 比较sorted()后的字符是否一模一样
 
 ## Solution 1
@@ -122,3 +124,42 @@ diff = target - v
 ## Complexity
 time:O(n)
 space:O(n)
+
+# 49. Group Anagram
+## 题目
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Explanation:
+
+There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+
+## 思路
+defaultdict(list)创建key:list对, 当key不存在时自动创建空list绑定key
+用hashmap, key是list of count of all characters(from a to z), 但是python不能用list做key, 所以要改为tuple
+count作为每个词的list, index是ASCII码(距离"a"的), value是出现次数
+hashmap[key].append(value)用于已经有value时
+hashmap[key] = value用于还没有value时
+list(hashmap.values())把values以list形式return
+
+## Code
+```python
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord("a")] += 1
+            res[tuple(count)].append(s)
+        return list(res.values())
+```
+
+## Complexity
+Time: O(m*n)
+Space: O(m*n)
