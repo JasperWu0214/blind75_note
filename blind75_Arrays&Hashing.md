@@ -45,15 +45,15 @@ Input: s = "rat", t = "car"
 Output: false
 
 ## 思路
--先比较长度
--用hashmap, 本质上是字典, key:value对, 比较两个hashmap是否完全相同
--Counter[key] -> value
--for loop字典, loop出的是key
--字典记得: 用.get(key, 0): -> 取key的value, 如果没出现过取0
+- 先比较长度
+- 用hashmap, 本质上是字典, key:value对, 比较两个hashmap是否完全相同
+- Counter[key] -> value
+- for loop字典, loop出的是key
+- 字典记得: 用.get(key, 0): -> 取key的value, 如果没出现过取0
 
 OR
 
--比较sorted()后的字符是否一模一样
+- 比较sorted()后的字符是否一模一样
 
 ## Solution 1
 ### Code 1
