@@ -27,7 +27,7 @@ class Solution:
         return False
 ```
 ## 思路
-建立一个set，set只能存储一个元素一次，用.add()添加元素
+-建立一个set，set只能存储一个元素一次，用.add()添加元素
 
 ## 复杂度
 Time Complexity: O(n)
@@ -45,15 +45,15 @@ Input: s = "rat", t = "car"
 Output: false
 
 ## 思路
-先比较长度
-用hashmap, 本质上是字典, key:value对, 比较两个hashmap是否完全相同
-Counter[key] -> value
-for loop字典, loop出的是key
-字典记得: 用.get(key, 0): -> 取key的value, 如果没出现过取0
+-先比较长度
+-用hashmap, 本质上是字典, key:value对, 比较两个hashmap是否完全相同
+-Counter[key] -> value
+-for loop字典, loop出的是key
+-字典记得: 用.get(key, 0): -> 取key的value, 如果没出现过取0
 
 OR
 
-比较sorted()后的字符是否一模一样
+-比较sorted()后的字符是否一模一样
 
 ## Solution 1
 ### Code 1
@@ -105,10 +105,10 @@ Input: nums = [3,2,4], target = 6
 Output: [1,2]
 
 ## 思路
-for i,v in enumerate(nums) -> enumerate()的结果先是index, 再是value. 但是hashmap是value:index
-用hashmap储存value:index
-diff = target - v
-如果diff在hashmap里(ie 之前出现过), 就return v和diff的indices
+-for i,v in enumerate(nums) -> enumerate()的结果先是index, 再是value. 但是hashmap是value:index
+-用hashmap储存value:index
+-diff = target - v
+-如果diff在hashmap里(ie 之前出现过), 就return v和diff的indices
 
 ## Code
 ```python
@@ -140,12 +140,12 @@ The strings "nat" and "tan" are anagrams as they can be rearranged to form each 
 The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
 
 ## 思路
-defaultdict(list)创建key:list对, 当key不存在时自动创建空list绑定key
-用hashmap, key是list of count of all characters(from a to z), 但是python不能用list做key, 所以要改为tuple
-count作为每个词的list, index是ASCII码(距离"a"的), value是出现次数
-hashmap[key].append(value)用于已经有value时
-hashmap[key] = value用于还没有value时
-list(hashmap.values())把values以list形式return
+-defaultdict(list)创建key:list对, 当key不存在时自动创建空list绑定key
+-用hashmap, key是list of count of all characters(from a to z), 但是python不能用list做key, 所以要改为tuple
+-count作为每个词的list, index是ASCII码(距离"a"的), value是出现次数
+-hashmap[key].append(value)用于已经有value时
+-hashmap[key] = value用于还没有value时
+-list(hashmap.values())把values以list形式return
 
 ## Code
 ```python
