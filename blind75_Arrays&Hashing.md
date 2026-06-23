@@ -142,7 +142,7 @@ The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to fo
 ## 思路
 - defaultdict(list)创建key:list对, 当key不存在时自动创建空list绑定key
 - 用hashmap, key是list of count of all characters(from a to z), 但是python不能用list做key, 所以要改为tuple
-- count作为每个词的list, index是ASCII码(距离"a"的), value是出现次数
+- count作为每个词的list, index: ASCII码(距离"a"的), value: 出现次数
 - hashmap[key].append(value)用于已经有value时
 - hashmap[key] = value用于还没有value时
 - list(hashmap.values())把values以list形式return
@@ -163,3 +163,53 @@ class Solution:
 ## Complexity
 Time: O(m*n)
 Space: O(m*n)
+
+# 347. Top K Frequent Elements
+## 题目
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Input: nums = [1], k = 1
+Output: [1]
+
+## 思路
+- bucket sort -> Count : Value而不是Value : Count
+  因为array的范围不是bounded, 用Value作为key会使Hashmap无限大
+  但是用Count做key的最大值就是len(strs)
+- hashmap vs bucket sort
+  hashmap没有排序, 还需要把value排序, 导致O(nlogn)的time complexity
+  bucket sort已经排序完了, O(n)的time complexity
+- Count.ietms()返回key:value对 (对dict用)
+  enumerate(list)返回index:value对 (对list用)
+- Count作为hashmap, 存储char:frequency
+  Freq作为bucket sort, 存储sorted的frequency
+- freq[c].append(n) | bucket sort的initialisation, 指定了index
+  res.append(n) | 最终答案
+- dict.get(n, 0) | n为index, 0为找不到时的return value
+- range(a,b,c) 包含a, 不包含b, c为步长
+
+## Code
+```python
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {} #hashmap
+        freq = [[] for i in range(len(nums) + 1)] #index:Count, value:value
+
+        for n in nums:
+            count[n] = 1 + count.get(n, 0) #initialise hashmap
+        for n, c in count.items():
+            freq[c].append(n) #initialise freq array
+        
+        res = []
+        for i in range(len(freq) - 1, 0, -1): #freq array: index从0到len(freq)-1
+            for n in freq[i]:#freq array的value是list
+                res.append(n)
+                if len(res) == k:
+                    return res
+```
+
+## Complexity
+Time: O(n)
+Space: O(n)
