@@ -337,7 +337,7 @@ Explanation: Same as Example 1, except with the 5 in the top left corner being m
 
 ## 思路
 - 用hashset检查是否重复, 遍历row和colunm满足(1)和(2)
-- 把9*9拆分成3*3, 用DIV向下取整
+- 把'9*9'拆分成'3*3', 用DIV向下取整
 - hashset的key:(row,column) | hashset的value:该坐标的数
 - 往set里加入数据用 squares[r//3, c//3].add(board[r][c])
 - /的结果是浮点数, //的结果是向下取整
