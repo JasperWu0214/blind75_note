@@ -368,3 +368,37 @@ class Solution:
 ## Complexity
 Time: O(1)
 Space: O(1) 因为给定了sudoku大小为9*9
+
+# 128.Longest Consequtive Sequence
+## 题目
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+
+Example 1:
+
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+## 思路
+- 先建立numset去重, 避免time limit exceed, 并且以后都用numset
+- 画数轴, 观察longest sequence要先确定start point, 再increment直到n+length没有, 注意n是起始位置, 要加的是length不是1
+
+## Code
+```python
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        maxlength = 0
+        numset = set(nums)
+        for n in numset:
+            if n-1 not in numset: #selection确定起始点
+                length = 0
+                while n+length in numset:#iteration increment补全length
+                    length += 1
+                maxlength = max(maxlength, length)
+        return maxlength
+```
+
+## Complexity
+time: O(n)
+spcae:O(n)
