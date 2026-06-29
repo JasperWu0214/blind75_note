@@ -141,7 +141,8 @@ Notice that the order of the output and the order of the triplets does not matte
 - nested loop: 确定一个数, 再把后面initialise L, R pointers
 - must distinct: 遇到相同元素跳过(并且i>0，ie为array的第二个元素)
 - edge case: 找到一组后, 后面还有其他满足条件的list, 要update L pointer
-- 做法： 找到一组答案后先increment L, 再increment(当nums[l]等于前一个and l<r 时)
+- 做法： 找到一组答案后先increment L, 再increment(当目前元素与前一个元素相同 and l<r 时)
+- .append()只能用一个argument, [a, nums[l], nums[r]]
 
 ## Code
 ```py
