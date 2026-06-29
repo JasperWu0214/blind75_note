@@ -174,3 +174,63 @@ class Solution:
 ## Complexity
 time: O(nlogn) + O(n^2) = O(n^2)
 space: O(1)
+
+# 11.Container with most water
+## 题目
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+Return the maximum amount of water a container can store.
+Notice that you may not slant the container.
+
+![](container_with_most_water_example_1.jpg)
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+
+## 思路 1
+- 遍历每一种组合
+- range(a,b) | a: 开始(闭), b:结束(开)
+
+## Code 1
+```py
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        res = 0
+        for i in range(len(height)):
+            for n in range(i+1, len(height)):
+                area = (n-i) * min(height[n], height[i])
+                res = max(res, area)
+        return res
+```
+
+## Complexity
+Time: O(n^2)
+Space: O(1)
+
+## 思路2
+- Area = (l-r) * min(height[r], height[l])
+- initialise后, (l-r)最大, 接下来哪个成为bottleneck就缩小哪个, 以遍历所有情况
+- 原理：(l-r)一定会减小, min(height[r], height[l])如果移动大的结果不变，只能移动小的
+- 反证法：如果(L,R)的R找不到，说明短板是R，但R是最优解
+
+## Code 2
+```py
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        maxres = 0
+        l, r = 0, len(height)-1
+        while l<r:
+            res = (r-l) * min(height[l], height[r])
+            maxres = max(maxres, res)
+            if height[l] > height[r]:
+                r -= 1
+            elif height[l] < height[r]:
+                l += 1
+            else:
+                l += 1
+        return maxres
+```
+
+## Complexity
+Time: O(n)
+Space: O(1)
