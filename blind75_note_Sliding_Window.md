@@ -69,3 +69,44 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
             r += 1
         return maxP
 ```
+
+## Complexity
+Time: O(n)
+Space: O(1)
+
+# 424. Longest Repeating Character Replacement
+## 题目
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+Example 1:
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
+
+## 思路
+- Substring_length - maxf >= k即为满足条件
+- 用hashmap储存substring每个char的出现次数
+- r: for loop找到每一个可能的组合 l: 当条件不满足时, l += 1
+
+## Code
+```py
+    class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {}
+        res = 0
+        l = 0
+        
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            while r - l + 1 - max(count.values()) > k:
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+
+        return res
+```
+
+## Complexity
+Time: O(n)
+Space: O(26*n) -> O(n)
