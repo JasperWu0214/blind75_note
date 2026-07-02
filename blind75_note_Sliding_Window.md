@@ -88,6 +88,7 @@ Explanation: Replace the two 'A's with two 'B's or vice versa.
 - Substring_length - maxf >= k即为满足条件
 - 用hashmap储存substring每个char的出现次数
 - r: for loop找到每一个可能的组合 l: 当条件不满足时, l += 1
+- optimized: Substring_length = maxf + k, maxf越大越好, 如果maxf减小, 无需更新, 如果maxf增大, 才要更新
 
 ## Code
 ```py
@@ -107,6 +108,25 @@ Explanation: Replace the two 'A's with two 'B's or vice versa.
         return res
 ```
 
+## Optimized Code
+```py
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {}
+        res = 0
+        l = 0
+        maxf = 0
+
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            maxf = max(maxf, count[s[r]])
+            while r - l + 1 - maxf > k:
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+
+        return res
+```
 ## Complexity
 Time: O(n)
 Space: O(26*n) -> O(n)
